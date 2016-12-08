@@ -18,10 +18,13 @@ class WallTrace():
     def run(self):
         rate = rospy.Rate(10)
         data = Twist()
+
         while not rospy.is_shutdown():
-            print self.sensor_values
-            data.linear.x = 0.1
+            data.linear.x = 0.2
             data.angular.z = 0
+            if self.sensor_values.sum_forward > 1000:
+                data.linear.x = 0
+                data.angular.z = 0
 
             self.cmd_vel.publish(data)
             rate.sleep()
