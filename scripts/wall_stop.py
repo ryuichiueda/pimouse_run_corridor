@@ -22,7 +22,7 @@ class WallTrace():
         while not rospy.is_shutdown():
             data.linear.x = 0.2
             data.angular.z = 0
-            if self.sensor_values.sum_forward > 1000:
+            if self.sensor_values.sum_all > 1000:
                 data.linear.x = 0
                 data.angular.z = 0
 
