@@ -8,10 +8,10 @@ from pimouse_ros.msg import LightSensorValues
 class WallTrace():
     def __init__(self):
         self.cmd_vel = rospy.Publisher('/cmd_vel',Twist,queue_size=1)
-        rospy.Subscriber('/lightsensors', LightSensorValues, self.callback_lightsensors)
+        rospy.Subscriber('/lightsensors', LightSensorValues, self.callback_sensors)
         self.sensors = LightSensorValues()
 
-    def callback_lightsensors(self,messages):
+    def callback_sensors(self,messages):
         self.sensors = messages
 
     def decision(self,sensor_sum_all):
