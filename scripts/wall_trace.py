@@ -27,11 +27,12 @@ class WallStopAccel():
         if   linear < self.min_speed: linear = self.min_speed
         elif linear > self.max_speed: linear = self.max_speed
 
+        if sensors.left_side < 10: #センサが反応してない時はまっすぐ
+            return linear, 0.0
+
         target = 50
-        #1cm近づくと値がだいたい50増える
-        error = (target - sensors.left_side)/50.0
-        #1cmあたり3[deg/s]変化をつける
-        return linear, error*3*math.pi/180
+        error = (target - sensors.left_side)/50.0 #1cm近づくと値がだいたい50増える
+        return linear, error*3*math.pi/180        #1cmあたり3[deg/s]変化をつける
 
     def decision(self,sensors,prev):
         if sensors.sum_all >= 50:
