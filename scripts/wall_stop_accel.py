@@ -6,15 +6,15 @@ from std_srvs.srv import Trigger, TriggerResponse
 from pimouse_ros.msg import LightSensorValues
 
 class WallStopAccel():
-    FREQ = 10 #[Hz]
-    ACCEL = 0.2/FREQ #[m/(s*one cycle)]
-    MAX_SPEED = 0.8 #[m/s]
-    MIN_SPEED = 0.2 #[m/s]
     
-    def __init__(self):
+    def __init__(self,freq=10,accel=0.2,min_speed=0.2,max_speed=0.8):
         self.cmd_vel = rospy.Publisher('/cmd_vel',Twist,queue_size=1)
         rospy.Subscriber('/lightsensors', LightSensorValues, self.callback_sensors)
         self.sensors = LightSensorValues()
+        self.freq = freq #[Hz]
+        self.accel_once = accel/freq #[m/(s*one cycle)]
+        self.min_speed = min_speed #[m/s]
+        self.max_speed = max_speed #[m/s]
 
     def callback_sensors(self,messages):
         self.sensors = messages
@@ -23,9 +23,9 @@ class WallStopAccel():
             return 0.0, 0.0
 
     def behavior_go(self,prev):
-        linear = prev.linear.x + accel
-        if   linear < WallStopAccel.MIN_SPEED: linear = WallStopAccel.MIN_SPEED
-        elif linear > WallStopAccel.MAX_SPEED: linear = WallStopAccel.MAX_SPEED
+        linear = prev.linear.x + self.accel_once
+        if   linear < self.min_speed: linear = self.min_speed
+        elif linear > self.max_speed: linear = self.max_speed
         return linear, 0.0
 
     def decision(self,sensors,prev):
@@ -35,7 +35,7 @@ class WallStopAccel():
             return self.behavior_go(prev)
     
     def run(self):
-        rate = rospy.Rate(10)
+        rate = rospy.Rate(self.freq)
         d = Twist()
         d.linear.x, d.angular.z = 0.0, 0.0
         while not rospy.is_shutdown():
