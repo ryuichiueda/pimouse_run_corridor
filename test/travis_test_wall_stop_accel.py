@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import unittest, rostest
 import rosnode, rospy
-import time
+import time,sys
 
 class WallStopTest(unittest.TestCase):
     def set_and_get(self,lf,ls,rs,rf):
@@ -15,7 +15,7 @@ class WallStopTest(unittest.TestCase):
             left = int(lf.readline().rstrip())
             right = int(rf.readline().rstrip())
 
-        rospy.loginfo("left:%d right:%d" % (left,right))
+        print >> sys.stderr, "left:%d right:%d" % (left,right)
         return left, right
 
     def test_io(self):
