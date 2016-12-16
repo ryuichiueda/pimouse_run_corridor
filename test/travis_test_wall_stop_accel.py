@@ -15,6 +15,7 @@ class WallStopTest(unittest.TestCase):
             left = int(lf.readline().rstrip())
             right = int(rf.readline().rstrip())
 
+        rospy.loginfo("left:%d right:%d" % (left,right))
         return left, right
 
     def test_io(self):
