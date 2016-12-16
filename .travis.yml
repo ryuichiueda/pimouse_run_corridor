@@ -7,4 +7,5 @@ script:
   - bash -xve ./test/travis_package_make.bash
   - source ~/catkin_ws/devel/setup.bash
   - ./test/travis_prepare_dummy_files.bash
-  - rostest pimouse_run_corridor test.launch
+  - rostest pimouse_run_corridor test_wall_stop.launch
+  - rostest pimouse_run_corridor test_wall_stop_accel.launch

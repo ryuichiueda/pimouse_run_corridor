@@ -28,7 +28,7 @@ class WallTrace():
         return linear, 0.0
 
     def decision(self,sensors,prev):
-        if sensors.sum_all >= 500:
+        if sensors.sum_all >= 50:
             return self.behavior_stop()
         else:
             return self.behavior_go(prev)
