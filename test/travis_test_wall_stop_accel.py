@@ -22,11 +22,12 @@ class WallStopTest(unittest.TestCase):
         self.assertTrue(left == 0 and right == 0,"can't stop")
 
         left, right = self.set_and_get(40,0,0,9) #total: 49
-        self.assertTrue(left < 1000 and right < 1000,"can't move again")
+        self.assertTrue(left > 0 and right > 0 \
+                and left < 1000 and right < 1000,"can't move again")
 
-        sleep(5.0)
+        time.sleep(5.0)
         left, right = self.set_and_get(40,0,0,9) #total: 49
-        self.assertTrue(left > 1000 and right > 1000,"can't move again")
+        self.assertTrue(left > 1000 and right > 1000,"can't accerelate")
 
         left, right = self.set_and_get(15,0,20,15) #total: 50
         self.assertTrue(left == 0 and right == 0,"can't stop")
