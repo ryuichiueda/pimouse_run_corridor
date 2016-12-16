@@ -35,7 +35,7 @@ class WallStopAccel():
         return linear, error*3*math.pi/180        #1cmあたり3[deg/s]変化をつける
 
     def decision(self,sensors,prev):
-        if sensors.sum_all >= 50:
+        if sensors.sum_forward >= 50:
             return self.behavior_stop()
         else:
             return self.behavior_go(sensors,prev)
