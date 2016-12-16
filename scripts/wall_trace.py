@@ -5,7 +5,7 @@ from geometry_msgs.msg import Twist
 from std_srvs.srv import Trigger, TriggerResponse
 from pimouse_ros.msg import LightSensorValues
 
-class WallStopAccel():
+class WallTrace():
     def __init__(self,freq=10,accel=0.2,min_speed=0.2,max_speed=0.8):
         self.cmd_vel = rospy.Publisher('/cmd_vel',Twist,queue_size=1)
         rospy.Subscriber('/lightsensors', LightSensorValues, self.callback_sensors)
@@ -59,4 +59,4 @@ if __name__ == '__main__':
         rospy.logerr("motors are not empowered")
         sys.exit(1)
 
-    WallStopAccel().run()
+    WallTrace().run()
