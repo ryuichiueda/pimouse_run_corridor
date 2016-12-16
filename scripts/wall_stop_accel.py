@@ -36,6 +36,7 @@ class WallStopAccel():
     def run(self):
         rate = rospy.Rate(10)
         d = Twist()
+        d.linear.x, d.angular.z = 0.0, 0.0
         while not rospy.is_shutdown():
             d.linear.x, d.angular.z = self.decision(self.sensors,d)
             self.cmd_vel.publish(d)
