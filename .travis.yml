@@ -9,3 +9,4 @@ script:
   - ./test/travis_prepare_dummy_files.bash
   - rostest pimouse_run_corridor test_wall_stop.launch
   - rostest pimouse_run_corridor test_wall_stop_accel.launch
+  - rostest pimouse_run_corridor test_wall_trace.launch
