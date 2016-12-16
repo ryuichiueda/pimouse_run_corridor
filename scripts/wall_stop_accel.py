@@ -6,6 +6,11 @@ from std_srvs.srv import Trigger, TriggerResponse
 from pimouse_ros.msg import LightSensorValues
 
 class WallStopAccel():
+    FREQ = 10 #[Hz]
+    ACCEL = 0.2/FREQ #[m/(s*one cycle)]
+    MAX_SPEED = 0.8 #[m/s]
+    MIN_SPEED = 0.2 #[m/s]
+    
     def __init__(self):
         self.cmd_vel = rospy.Publisher('/cmd_vel',Twist,queue_size=1)
         rospy.Subscriber('/lightsensors', LightSensorValues, self.callback_sensors)
@@ -18,13 +23,9 @@ class WallStopAccel():
             return 0.0, 0.0
 
     def behavior_go(self,prev):
-        accel = 0.02
-        min_limit = 0.2
-        max_limit = 0.8
-
         linear = prev.linear.x + accel
-        if   linear < min_limit: linear = min_limit
-        elif linear > max_limit: linear = max_limit
+        if   linear < WallStopAccel.MIN_SPEED: linear = WallStopAccel.MIN_SPEED
+        elif linear > WallStopAccel.MAX_SPEED: linear = WallStopAccel.MAX_SPEED
         return linear, 0.0
 
     def decision(self,sensors,prev):
