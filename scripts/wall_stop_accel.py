@@ -18,7 +18,7 @@ class WallStopAccel():
             return 0.0, 0.0
 
     def behavior_go(self,prev):
-        accel = 0.2
+        accel = 0.02
         min_limit = 0.2
         max_limit = 0.8
 
