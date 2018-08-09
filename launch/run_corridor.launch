@@ -1,3 +1,0 @@
-<launch>
-  <include file="$(find pimouse_ros)/launch/pimouse.launch" /> 
-</launch>

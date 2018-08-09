@@ -1,0 +1,4 @@
+<launch>
+  <include file="$(find pimouse_ros)/launch/pimouse.launch" /> 
+  <node pkg="pimouse_run_corridor" name="wall_around" type="wall_around.py" required="true" />
+</launch>

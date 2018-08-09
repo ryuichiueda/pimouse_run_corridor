@@ -1,0 +1,5 @@
+<launch>
+  <include file="$(find pimouse_ros)/launch/pimouse.launch" /> 
+  <node pkg="pimouse_run_corridor" name="wall_trace" type="wall_trace.py" required="true" />
+  <test test-name="test_wall_trace" pkg="pimouse_run_corridor" type="travis_test_wall_trace.py" />
+</launch>
